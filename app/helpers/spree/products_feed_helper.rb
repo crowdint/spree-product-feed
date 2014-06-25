@@ -25,4 +25,9 @@ module Spree::ProductsFeedHelper
   def product_price amount
     number_to_currency(amount, unit: 'USD', format: "%n %u")
   end
+
+  def product_brand product
+    brand = product.properties.where(name: 'brand').first
+    !brand.nil? && roduct.product_properties.where(property_id: brand.id).first.try(:value) || ''
+  end
 end
