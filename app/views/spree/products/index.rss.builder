@@ -7,8 +7,8 @@ xml.rss(:version=>"2.0", "xmlns:g" => "http://base.google.com/ns/1.0"){
     xml.language('en-us')
     @products.each do |product|
       xml.item do
-        xml.title(product.name)
-        xml.description(product_description(product))
+        xml.title { |t| t.cdata! product.name }
+        xml.description { |t| t.cdata! product_description(product) }
         xml.author(current_store_title)
         xml.pubDate((product.available_on || product.created_at).strftime("%a, %d %b %Y %H:%M:%S %z"))
         xml.link(product_url(product))
