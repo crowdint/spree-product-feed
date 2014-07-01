@@ -27,7 +27,31 @@ module Spree::ProductsFeedHelper
   end
 
   def product_brand product
-    brand = product.properties.where(name: 'brand').first
-    !brand.nil? && roduct.product_properties.where(property_id: brand.id).first.try(:value) || ''
+    product_property_by(product, 'brand')
   end
+
+  def product_type product
+    product_property_by(product, 'type')
+  end
+
+  def product_gender product
+    product_property_by(product, 'gender')
+  end
+
+  def product_color variant
+    option_type = Spree::OptionType.where(presentation: 'color').first
+    variant.option_values.where(option_type_id: option_type.id).first.presentation || ''
+  end
+
+  def google_product_category product
+    product_property_by(product, 'google_product_category')
+  end
+
+  private
+
+  def product_property_by product, name
+    property = product.properties.where(name: name).first
+    !property.nil? && product.product_properties.where(property_id: property.id).first.try(:value) || ''
+  end
+
 end
