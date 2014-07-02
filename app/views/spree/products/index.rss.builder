@@ -22,10 +22,10 @@ xml.rss(:version=>"2.0", "xmlns:g" => "http://base.google.com/ns/1.0"){
         xml.tag!('g:age_group', 'adult')
         xml.tag!('g:availability', product.has_stock? ? 'in stock' : 'out of stock')
         xml.tag!('g:brand', product_brand(product))
-        xml.tag!('g:product_type', product_type(product))
+        xml.tag!('g:product_type'){|t| t.cdata! product_type(product) }
         xml.tag!('g:color', product_color(product.variants.try(:first)))
         xml.tag!('g:gender', product_gender(product))
-        xml.tag!('g:google_product_category', google_product_category(product))
+        xml.tag!('g:google_product_category'){|t| t.cdata! google_product_category(product) }
         xml.tag!('g:condition', 'new')
         xml.tag!('g:identifier_exists', 'TRUE')
         xml.tag!('g:mpn', product.sku)

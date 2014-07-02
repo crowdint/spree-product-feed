@@ -15,7 +15,7 @@ module Spree::ProductsFeedHelper
     image = image_tag(product.images.first.attachment.url(:product))
     product_link = product.images && link_to(image, product_url(product))
 
-    "<![CDATA[#{product_link}#{simple_format(product.description)}]]>"
+    "#{product_link}#{simple_format(product.description)}"
   end
 
   def product_image_link path
