@@ -40,7 +40,7 @@ module Spree::ProductsFeedHelper
 
   def product_color variant
     option_type = Spree::OptionType.where(presentation: 'color').first
-    variant.option_values.where(option_type_id: option_type.id).first.presentation || ''
+    variant && variant.option_values.where(option_type_id: option_type.id).first.presentation || ''
   end
 
   def google_product_category product
